@@ -14,53 +14,25 @@
 	
 	<properties>
 		<license.dir>${project.parent.basedir}</license.dir>
+		
+		<gelfj.version>1.1.16</gelfj.version>
 	</properties>
 
 	<dependencies>
+		
+		<!-- OneLog CORE -->
+		<dependency>
+			<groupId>com.minsait.onesait.platform</groupId>
+			<artifactId>onelog-core</artifactId>
+			<version>${onesaitplatform.version}</version>
+		</dependency>
+	
+		<!-- GELFJ -->
 		<dependency>
 	    	<groupId>org.graylog2</groupId>
 	    	<artifactId>gelfj</artifactId>
-	    	<version>1.1.16</version>
+	    	<version>${gelfj.version}</version>
 	  	</dependency>
 	</dependencies>
-
-	<profiles>
-		<profile>
-			<id>releases</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-			</activation>
-			<distributionManagement>
-				<repository>
-					<id>releases</id>
-					<url>http://nexus.onesaitplatform.com/nexus/content/repositories/releases/</url>
-				</repository>
-			</distributionManagement>
-		</profile>
-
-		<profile>
-			<id>snapshots</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-			</activation>
-			<distributionManagement>
-				<repository>
-					<id>snapshots</id>
-					<url>http://nexus.onesaitplatform.com/nexus/content/repositories/snapshots/</url>
-				</repository>
-			</distributionManagement>
-		</profile>
-	</profiles>
-
-	<repositories>
-		<repository>
-			<id>confluent</id>
-			<url>http://packages.confluent.io/maven/</url>
-		</repository>
-		<repository>
-			<id>snapshots</id>
-			<url>http://nexus.onesaitplatform.com/nexus/content/repositories/snapshots/</url>
-		</repository>
-	</repositories>
 
 </project>

@@ -12,8 +12,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.minsait.onesait.platform.onelog;
+package com.minsait.onesait.platform.onelog.graylog;
 
-public class OneLogAppender {
+import com.minsait.onesait.platform.onelog.OneLogAppender;
+
+public class OneLogGraylogAppender extends OneLogAppender{
 
 }
