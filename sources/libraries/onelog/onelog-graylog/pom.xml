@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.minsait.onesait.platform</groupId>
+		<artifactId>onesaitplatform-parent</artifactId>
+		<version>1.0.0-ce</version>
+		<relativePath>../../..</relativePath>
+	</parent>
+	<artifactId>onelog-graylog</artifactId>
+	<packaging>jar</packaging>
+	
+	<properties>
+		<license.dir>${project.parent.basedir}</license.dir>
+	</properties>
+
+	<dependencies>
+		<dependency>
+	    	<groupId>org.graylog2</groupId>
+	    	<artifactId>gelfj</artifactId>
+	    	<version>1.1.16</version>
+	  	</dependency>
+	</dependencies>
+
+	<profiles>
+		<profile>
+			<id>releases</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<distributionManagement>
+				<repository>
+					<id>releases</id>
+					<url>http://nexus.onesaitplatform.com/nexus/content/repositories/releases/</url>
+				</repository>
+			</distributionManagement>
+		</profile>
+
+		<profile>
+			<id>snapshots</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<distributionManagement>
+				<repository>
+					<id>snapshots</id>
+					<url>http://nexus.onesaitplatform.com/nexus/content/repositories/snapshots/</url>
+				</repository>
+			</distributionManagement>
+		</profile>
+	</profiles>
+
+	<repositories>
+		<repository>
+			<id>confluent</id>
+			<url>http://packages.confluent.io/maven/</url>
+		</repository>
+		<repository>
+			<id>snapshots</id>
+			<url>http://nexus.onesaitplatform.com/nexus/content/repositories/snapshots/</url>
+		</repository>
+	</repositories>
+
+</project>

@@ -222,6 +222,8 @@
 		<!--LIBRARIES -->
 		<module>libraries/commons</module>
 		<module>libraries/audit</module>
+		<module>libraries/onelog/onelog-core</module>
+		<module>libraries/onelog/onelog-graylog</module>
 
 		<!--SECURITY -->
 		<module>libraries/security/security-ui-ri</module>
