@@ -1,22 +1,17 @@
-/*
- * Logback GELF - zero dependencies Logback GELF appender library.
- * Copyright (C) 2016 Oliver Siegmar
+/**
+ * Copyright Indra Soluciones Tecnologías de la Información, S.L.U.
+ * 2013-2019 SPAIN
  *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
-
 package com.minsait.onesait.platform.onelog;
 
 import java.io.IOException;
@@ -31,8 +26,6 @@ import com.minsait.onesait.platform.onelog.pool.SimpleObjectPool;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
 public class GelfTcpAppender extends GelfAppender {
 
     private static final int DEFAULT_CONNECT_TIMEOUT = 15_000;
@@ -46,34 +39,46 @@ public class GelfTcpAppender extends GelfAppender {
      * Maximum time (in milliseconds) to wait for establishing a connection. A value of 0 disables
      * the connect timeout. Default: 15,000 milliseconds.
      */
+    @Getter
+    @Setter
     private int connectTimeout = DEFAULT_CONNECT_TIMEOUT;
 
     /**
      * Time interval (in seconds) after an existing connection is closed and re-opened.
      * A value of -1 disables automatic reconnects. Default: 60 seconds.
      */
+    @Getter
+    @Setter
     private int reconnectInterval = DEFAULT_RECONNECT_INTERVAL;
 
     /**
      * Number of retries. A value of 0 disables retry attempts. Default: 2.
      */
+    @Getter
+    @Setter
     private int maxRetries = DEFAULT_MAX_RETRIES;
 
     /**
      * Time (in milliseconds) between retry attempts. Ignored if maxRetries is 0.
      * Default: 3,000 milliseconds.
      */
+    @Getter
+    @Setter
     private int retryDelay = DEFAULT_RETRY_DELAY;
 
     /**
      * Number of concurrent tcp connections (minimum 1). Default: 2.
      */
+    @Getter
+    @Setter
     private int poolSize = DEFAULT_POOL_SIZE;
 
     /**
      * Maximum amount of time (in milliseconds) to wait for a connection to become
      * available from the pool. A value of -1 disables the timeout. Default: 5,000 milliseconds.
      */
+    @Getter
+    @Setter
     private int poolMaxWaitTime = DEFAULT_POOL_MAX_WAIT_TIME;
 
     private SimpleObjectPool<TcpConnection> connectionPool;
@@ -135,7 +140,6 @@ public class GelfTcpAppender extends GelfAppender {
         } catch (final Exception e) {
             addError(String.format("Error sending message via tcp://%s:%s",
                 getGraylogHost(), getGraylogPort()), e);
-
             return false;
         }
 

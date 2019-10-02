@@ -1,34 +1,31 @@
-/*
- * Logback GELF - zero dependencies Logback GELF appender library.
- * Copyright (C) 2016 Oliver Siegmar
+/**
+ * Copyright Indra Soluciones Tecnologías de la Información, S.L.U.
+ * 2013-2019 SPAIN
  *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
-
 package com.minsait.onesait.platform.onelog;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
+import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Marker;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import ch.qos.logback.classic.PatternLayout;
 import ch.qos.logback.classic.spi.ILoggingEvent;
@@ -42,127 +39,108 @@ import lombok.Setter;
 /**
  * This class is responsible for transforming a Logback log event to a GELF message.
  */
-@Getter
-@Setter
 public class GelfEncoder extends EncoderBase<ILoggingEvent> {
+	
+	/** GELF Encoder version */
+	private static final float GELF_ENCODER_VERSION = 1.0f;
 
     private static final Pattern VALID_ADDITIONAL_FIELD_PATTERN = Pattern.compile("^[\\w.-]*$");
     private static final double MSEC_DIVIDER = 1000D;
 
     private static final String DEFAULT_SHORT_PATTERN = "%m%nopex";
     private static final String DEFAULT_FULL_PATTERN = "%m%n";
+    
+    /** Jackson Serializer */
+    private static final ObjectMapper mapper = new ObjectMapper();
 
     /**
      * Origin hostname - will be auto detected if not specified.
      */
+    @Getter
+    @Setter
     private String originHost;
 
     /**
      * If true, the raw message (with argument placeholders) will be sent, too. Default: false.
      */
+    @Getter
+    @Setter
     private boolean includeRawMessage;
 
     /**
      * If true, logback markers will be sent, too. Default: true.
      */
+    @Getter
+    @Setter
     private boolean includeMarker = true;
 
     /**
      * If true, MDC keys/values will be sent, too. Default: true.
      */
+    @Getter
+    @Setter
     private boolean includeMdcData = true;
 
     /**
      * If true, caller data (source file-, method-, class name and line) will be sent, too.
      * Default: false.
      */
+    @Getter
+    @Setter
     private boolean includeCallerData;
 
     /**
      * If true, root cause exception of the exception passed with the log message will be
      * exposed in the exception field. Default: false.
      */
+    @Getter
+    @Setter
     private boolean includeRootCauseData;
 
     /**
      * If true, the log level name (e.g. DEBUG) will be sent, too. Default: false.
      */
+    @Getter
+    @Setter
     private boolean includeLevelName;
 
     /**
      * The key that should be used for the levelName.
      */
+    @Getter
+    @Setter
     private String levelNameKey = "level_name";
-
-    /**
-     * If true, a system depended newline separator will be added at the end of each message.
-     * Don't use this in conjunction with TCP or UDP appenders, as this is only reasonable for
-     * console logging!
-     * Default: false.
-     */
-    private boolean appendNewline;
 
     /**
      * Short message format. Default: `"%m%nopex"`.
      */
+    @Getter
+    @Setter
     private PatternLayout shortPatternLayout;
 
     /**
      * Full message format (Stacktrace). Default: `"%m%n"`.
      */
+    @Getter
+    @Setter
     private PatternLayout fullPatternLayout;
 
     /**
      * Log numbers as String. Default: true (will be changed in next major release).
      */
+    @Getter
+    @Setter
     private boolean numbersAsString = true;
 
     /**
      * Additional, static fields to send to graylog. Defaults: none.
      */
-    private Map<String, Object> staticFields = new HashMap<>();
-
-    public void addStaticField(final String staticField) {
-        final String[] split = staticField.split(":", 2);
-        if (split.length == 2) {
-            addField(staticFields, split[0].trim(), split[1].trim());
-        } else {
-            addWarn("staticField must be in format key:value - rejecting '" + staticField + "'");
-        }
-    }
-
-    private void addField(final Map<String, Object> dst, final String key, final String value) {
-        if (key.isEmpty()) {
-            addWarn("staticField key must not be empty");
-        } else if ("id".equalsIgnoreCase(key)) {
-            addWarn("staticField key name 'id' is prohibited");
-        } else if (dst.containsKey(key)) {
-            addWarn("additional field with key '" + key + "' is already set");
-        } else if (!VALID_ADDITIONAL_FIELD_PATTERN.matcher(key).matches()) {
-            addWarn("staticField key '" + key + "' is illegal. "
-                + "Keys must apply to regex ^[\\w.-]*$");
-        } else {
-            if (value != null) {
-                dst.put(key, processValue(value));
-            }
-        }
-    }
-
-    private Object processValue(final String value) {
-        if (!numbersAsString) {
-            try {
-                return Double.valueOf(value);
-            } catch (final NumberFormatException e) {
-                return value;
-            }
-        }
-        return value;
-    }
+    private final Map<String, Object> staticFields = new ConcurrentHashMap<>();
 
     @Override
     public void start() {
-        if (originHost == null || originHost.trim().isEmpty()) {
-            originHost = buildHostname();
+        if (StringUtils.isBlank(originHost)) {
+            originHost = OneLogUtils.getHostName();
         }
         if (shortPatternLayout == null) {
             shortPatternLayout = buildPattern(DEFAULT_SHORT_PATTERN);
@@ -170,17 +148,7 @@ public class GelfEncoder extends EncoderBase<ILoggingEvent> {
         if (fullPatternLayout == null) {
             fullPatternLayout = buildPattern(DEFAULT_FULL_PATTERN);
         }
-
         super.start();
-    }
-
-    private String buildHostname() {
-        try {
-            return InetAddress.getLocalHost().getCanonicalHostName();
-        } catch (final UnknownHostException e) {
-            addWarn("Could not determine local hostname", e);
-            return "unknown";
-        }
     }
 
     private PatternLayout buildPattern(final String pattern) {
@@ -204,17 +172,27 @@ public class GelfEncoder extends EncoderBase<ILoggingEvent> {
         final double timestamp = event.getTimeStamp() / MSEC_DIVIDER;
         final Map<String, Object> additionalFields = mapAdditionalFields(event);
 
-        final GelfMessage gelfMessage =
-            new GelfMessage(originHost, shortMessage, fullMessage, timestamp,
-                LevelToSyslogSeverity.convert(event), additionalFields);
-
-        String jsonStr = gelfMessage.toJSON();
-        if (appendNewline) {
-            jsonStr += System.lineSeparator();
+        final Map<String, Object> message = new HashMap<>();
+        message.put("version", GELF_ENCODER_VERSION);
+        message.put("host", originHost);
+        message.put("short_message", shortMessage);
+        message.put("full_messsage", fullMessage);
+        message.put("timestamp", OneLogUtils.formatToUSDecimalFormat(timestamp));
+        message.put("level", LevelToSyslogSeverity.convert(event));
+        for (final Map.Entry<String, Object> entry : additionalFields.entrySet()) {
+        	message.put("_".concat(entry.getKey()), entry.getValue());
         }
-
-        return jsonStr.getBytes(StandardCharsets.UTF_8);
+        return serializeAsBinaryJSON(message);
     }
+
+	private byte[] serializeAsBinaryJSON(final Map<String, Object> gelfMessage) {
+		try {
+			return mapper.writeValueAsBytes(gelfMessage);
+		} catch (JsonProcessingException exception) {
+			addError(exception.getMessage());
+		}
+		return new byte[0];
+	}
 
     @Override
     public byte[] footerBytes() {
@@ -223,7 +201,6 @@ public class GelfEncoder extends EncoderBase<ILoggingEvent> {
 
     private Map<String, Object> mapAdditionalFields(final ILoggingEvent event) {
         final Map<String, Object> additionalFields = new HashMap<>(staticFields);
-
         additionalFields.put("logger_name", event.getLoggerName());
         additionalFields.put("thread_name", event.getThreadName());
 
@@ -253,7 +230,6 @@ public class GelfEncoder extends EncoderBase<ILoggingEvent> {
         if (includeRootCauseData) {
             additionalFields.putAll(buildRootExceptionData(event.getThrowableProxy()));
         }
-
         return additionalFields;
     }
 
@@ -268,6 +244,43 @@ public class GelfEncoder extends EncoderBase<ILoggingEvent> {
         }
 
         return additionalFields;
+    }
+    
+    public void addStaticField(final String staticField) {
+        final String[] split = staticField.split(":", 2);
+        if (split.length == 2) {
+            addField(staticFields, split[0].trim(), split[1].trim());
+        } else {
+            addWarn("staticField must be in format key:value - rejecting '" + staticField + "'");
+        }
+    }
+    
+    private void addField(final Map<String, Object> dst, final String key, final String value) {
+        if (key.isEmpty()) {
+            addWarn("staticField key must not be empty");
+        } else if ("id".equalsIgnoreCase(key)) {
+            addWarn("staticField key name 'id' is prohibited");
+        } else if (dst.containsKey(key)) {
+            addWarn("additional field with key '" + key + "' is already set");
+        } else if (!VALID_ADDITIONAL_FIELD_PATTERN.matcher(key).matches()) {
+            addWarn("staticField key '" + key + "' is illegal. "
+                + "Keys must apply to regex ^[\\w.-]*$");
+        } else {
+            if (value != null) {
+                dst.put(key, processValue(value));
+            }
+        }
+    }
+    
+    private Object processValue(final String value) {
+        if (!numbersAsString) {
+            try {
+                return Double.valueOf(value);
+            } catch (final NumberFormatException e) {
+                return value;
+            }
+        }
+        return value;
     }
 
     private Map<String, Object> buildCallerData(final StackTraceElement[] callerData) {
@@ -287,29 +300,26 @@ public class GelfEncoder extends EncoderBase<ILoggingEvent> {
     }
 
     private Map<String, Object> buildRootExceptionData(final IThrowableProxy throwableProxy) {
-        final IThrowableProxy rootException = getRootException(throwableProxy);
-        if (rootException == null) {
-            return Collections.emptyMap();
+        final Optional<IThrowableProxy> rootException = getRootException(throwableProxy);
+        if (rootException.isPresent()) {
+        	final IThrowableProxy exception = rootException.get();
+        	final Map<String, Object> exceptionDataMap = new HashMap<>(2);
+            exceptionDataMap.put("root_cause_class_name", exception.getClassName());
+            exceptionDataMap.put("root_cause_message", exception.getMessage());
+            return exceptionDataMap;
         }
-
-        final Map<String, Object> exceptionDataMap = new HashMap<>(2);
-        exceptionDataMap.put("root_cause_class_name", rootException.getClassName());
-        exceptionDataMap.put("root_cause_message", rootException.getMessage());
-
-        return exceptionDataMap;
+        return Collections.emptyMap();
     }
-
-    private IThrowableProxy getRootException(final IThrowableProxy throwableProxy) {
+    
+    private Optional<IThrowableProxy> getRootException(final IThrowableProxy throwableProxy) {
         if (throwableProxy == null) {
-            return null;
+            return Optional.empty();
         }
-
         IThrowableProxy rootCause = throwableProxy;
         while (rootCause.getCause() != null) {
             rootCause = rootCause.getCause();
         }
-
-        return rootCause;
+        return Optional.of(rootCause);
     }
 
 }
