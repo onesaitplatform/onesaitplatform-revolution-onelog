@@ -52,6 +52,7 @@
 		<gson.version>2.5</gson.version>
 		<micrometer.version>1.2.0</micrometer.version>
 		<jaspersoft.ws.version>1.0.1-SNAPSHOT</jaspersoft.ws.version>
+		<logback.version>1.2.3</logback.version>
 	</properties>
 
 	<dependencyManagement>
@@ -195,6 +196,20 @@
 				<version>${jaspersoft.ws.version}</version>
 			</dependency>
 
+			<!-- Logback-classic -->
+			<dependency>
+				<groupId>ch.qos.logback</groupId>
+				<artifactId>logback-classic</artifactId>
+				<version>${logback.version}</version>
+			</dependency>
+
+			<!-- Logback-core -->
+			<dependency>
+				<groupId>ch.qos.logback</groupId>
+				<artifactId>logback-core</artifactId>
+				<version>${logback.version}</version>
+			</dependency>
+			
 		</dependencies>
 	</dependencyManagement>
 
@@ -222,8 +237,7 @@
 		<!--LIBRARIES -->
 		<module>libraries/commons</module>
 		<module>libraries/audit</module>
-		<module>libraries/onelog/onelog-core</module>
-		<module>libraries/onelog/onelog-graylog</module>
+		<module>libraries/onelog</module>
 
 		<!--SECURITY -->
 		<module>libraries/security/security-ui-ri</module>

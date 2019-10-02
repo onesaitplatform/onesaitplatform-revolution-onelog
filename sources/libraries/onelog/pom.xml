@@ -9,7 +9,7 @@
 		<version>1.0.0-ce</version>
 		<relativePath>../../..</relativePath>
 	</parent>
-	<artifactId>onelog-core</artifactId>
+	<artifactId>onelog</artifactId>
 	<packaging>jar</packaging>
 
 	<properties>
@@ -25,6 +25,18 @@
 			<groupId>com.minsait.onesait.platform</groupId>
 			<artifactId>onesaitplatform-commons</artifactId>
 			<version>${onesaitplatform.version}</version>
+		</dependency>
+		
+		<!-- Logback-classic -->
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+		</dependency>
+
+		<!-- Logback-core -->
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-core</artifactId>
 		</dependency>
 	</dependencies>
 

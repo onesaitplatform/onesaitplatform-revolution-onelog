@@ -126,6 +126,13 @@
 			</exclusions>
 			<version>${onesaitplatform.version}</version>
 		</dependency>
+		
+		<!-- OneLog -->
+		<dependency>
+			<groupId>com.minsait.onesait.platform</groupId>
+			<artifactId>onelog</artifactId>
+			<version>${onesaitplatform.version}</version>
+		</dependency>
 
 		<!-- Spring fox swagger ui -->
 
@@ -322,13 +329,11 @@
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
-			<version>1.2.3</version>
 		</dependency>
 
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-core</artifactId>
-			<version>1.2.3</version>
 		</dependency>
 
 
@@ -410,26 +415,6 @@
 			<version>2.5.6</version>
 		</dependency>
 
-
-	<!-- 	<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>1.2.17</version>
-		</dependency>  
-		
-		<dependency>
-			<groupId>org.graylog2</groupId>
-			<artifactId>gelfj</artifactId>
-			<version>1.1.15</version>
-		</dependency>-->
-
-		<dependency>
-		    <groupId>de.siegmar</groupId>
-		    <artifactId>logback-gelf</artifactId>
-		    <version>2.1.0</version>
-		</dependency>
-
-		
 	</dependencies>
 
 	<repositories>
