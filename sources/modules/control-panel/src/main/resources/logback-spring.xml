@@ -71,9 +71,7 @@
             </fullPatternLayout>
             <numbersAsString>false</numbersAsString>
             <staticField>app_name:control_panel</staticField>
-            <staticField>os_arch:${os.arch}</staticField>
             <staticField>os_name:${os.name}</staticField>
-            <staticField>os_version:${os.version}</staticField>
         </encoder>
     </appender>
 
