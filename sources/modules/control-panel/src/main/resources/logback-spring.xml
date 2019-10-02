@@ -45,16 +45,55 @@
     <appender name="ASYNC" class="ch.qos.logback.classic.AsyncAppender">
         <appender-ref ref="rollingFileAppender" />
     </appender>
+    
+    <appender name="GELF" class="de.siegmar.logbackgelf.GelfTcpAppender">
+        <graylogHost>127.0.0.1</graylogHost>
+        <graylogPort>12201</graylogPort>
+        <connectTimeout>15000</connectTimeout>
+        <reconnectInterval>300</reconnectInterval>
+        <maxRetries>2</maxRetries>
+        <retryDelay>3000</retryDelay>
+        <poolSize>2</poolSize>
+        <poolMaxWaitTime>5000</poolMaxWaitTime>
+        <encoder class="de.siegmar.logbackgelf.GelfEncoder">
+            <originHost>${HOSTNAME}</originHost>
+            <includeRawMessage>false</includeRawMessage>
+            <includeMarker>true</includeMarker>
+            <includeMdcData>true</includeMdcData>
+            <includeCallerData>true</includeCallerData>
+            <includeRootCauseData>true</includeRootCauseData>
+            <includeLevelName>true</includeLevelName>
+            <shortPatternLayout class="ch.qos.logback.classic.PatternLayout">
+                <pattern>%m%nopex</pattern>
+            </shortPatternLayout>
+            <fullPatternLayout class="ch.qos.logback.classic.PatternLayout">
+                <pattern>%m%n</pattern>
+            </fullPatternLayout>
+            <numbersAsString>false</numbersAsString>
+            <staticField>app_name:control_panel</staticField>
+            <staticField>os_name:${os.name}</staticField>
+        </encoder>
+    </appender>
+
+    <appender name="ASYNC GELF" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="GELF" />
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="ASYNC GELF" />
+    </root>    
          
     <springProfile name="dev,default">
 	    <root level="INFO">
 	        <appender-ref ref="stdoutAppender" />
 	        <appender-ref ref="rollingFileAppender" />
+	        <appender-ref ref="ASYNC GELF" />
 	    </root>
     </springProfile>
     <springProfile name="production,docker">
 	    <root level="INFO">
 	        <appender-ref ref="ASYNC" />
+	        <appender-ref ref="ASYNC GELF" />
 	    </root>
     </springProfile>     
     
