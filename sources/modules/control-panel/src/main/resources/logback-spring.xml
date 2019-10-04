@@ -47,30 +47,9 @@
     </appender>
     
     <appender name="GELF" class="com.minsait.onesait.platform.onelog.GelfTcpAppender">
-        <graylogHost>localhost</graylogHost>
-        <graylogPort>12201</graylogPort>
-        <connectTimeout>15000</connectTimeout>
-        <reconnectInterval>300</reconnectInterval>
-        <maxRetries>2</maxRetries>
-        <retryDelay>3000</retryDelay>
-        <poolSize>2</poolSize>
-        <poolMaxWaitTime>5000</poolMaxWaitTime>
         <encoder class="com.minsait.onesait.platform.onelog.GelfEncoder">
             <originHost>${HOSTNAME}</originHost>
-            <includeRawMessage>false</includeRawMessage>
-            <includeMarker>true</includeMarker>
-            <includeMdcData>true</includeMdcData>
-            <includeCallerData>true</includeCallerData>
-            <includeRootCauseData>true</includeRootCauseData>
-            <includeLevelName>true</includeLevelName>
-            <shortPatternLayout class="ch.qos.logback.classic.PatternLayout">
-                <pattern>%m%nopex</pattern>
-            </shortPatternLayout>
-            <fullPatternLayout class="ch.qos.logback.classic.PatternLayout">
-                <pattern>%m%n</pattern>
-            </fullPatternLayout>
-            <numbersAsString>false</numbersAsString>
-            <staticField>app_name:control_panel</staticField>
+            <staticField>app_name:${spring.application.name}</staticField>
             <staticField>os_name:${os.name}</staticField>
         </encoder>
     </appender>
@@ -78,10 +57,6 @@
     <appender name="ASYNC GELF" class="ch.qos.logback.classic.AsyncAppender">
         <appender-ref ref="GELF" />
     </appender>
-
-    <root level="INFO">
-        <appender-ref ref="ASYNC GELF" />
-    </root>    
          
     <springProfile name="dev,default">
 	    <root level="INFO">

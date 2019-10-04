@@ -16,6 +16,8 @@ package com.minsait.onesait.platform.onelog;
 
 import java.io.IOException;
 
+import com.minsait.onesait.platform.onelog.config.LogProperties;
+
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.UnsynchronizedAppenderBase;
 import lombok.Getter;
@@ -31,14 +33,14 @@ public abstract class GelfAppender extends UnsynchronizedAppenderBase<ILoggingEv
      */
     @Getter
     @Setter
-    private String graylogHost;
+    private String graylogHost = LogProperties.getInstance().getGraylog_host();
 
     /**
      * Port of graylog server. Default: 12201.
      */
     @Getter
     @Setter
-    private int graylogPort = DEFAULT_GELF_PORT;
+    private int graylogPort = LogProperties.getInstance().getGraylog_port();
 
     @Getter
     @Setter

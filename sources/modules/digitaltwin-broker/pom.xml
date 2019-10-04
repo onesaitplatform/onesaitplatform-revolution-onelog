@@ -53,6 +53,13 @@
 			<artifactId>onesaitplatform-pass-encryptor</artifactId>
 			<version>${onesaitplatform.version}</version>
 		</dependency>		
+		
+		<!-- OneLog -->
+		<dependency>
+			<groupId>com.minsait.onesait.platform</groupId>
+			<artifactId>onelog</artifactId>
+			<version>${onesaitplatform.version}</version>
+		</dependency>		
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

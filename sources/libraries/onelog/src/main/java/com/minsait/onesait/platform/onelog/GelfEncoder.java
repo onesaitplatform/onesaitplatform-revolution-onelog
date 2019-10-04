@@ -26,6 +26,7 @@ import org.slf4j.Marker;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.minsait.onesait.platform.onelog.config.LogProperties;
 
 import ch.qos.logback.classic.PatternLayout;
 import ch.qos.logback.classic.spi.ILoggingEvent;
@@ -58,28 +59,28 @@ public class GelfEncoder extends EncoderBase<ILoggingEvent> {
      */
     @Getter
     @Setter
-    private String originHost;
+    private String originHost = LogProperties.getInstance().getOrigin_host();
 
     /**
      * If true, the raw message (with argument placeholders) will be sent, too. Default: false.
      */
     @Getter
     @Setter
-    private boolean includeRawMessage;
+    private boolean includeRawMessage = LogProperties.getInstance().getInclude_raw_message();
 
     /**
      * If true, logback markers will be sent, too. Default: true.
      */
     @Getter
     @Setter
-    private boolean includeMarker = true;
+    private boolean includeMarker = LogProperties.getInstance().getInclude_marker();
 
     /**
      * If true, MDC keys/values will be sent, too. Default: true.
      */
     @Getter
     @Setter
-    private boolean includeMdcData = true;
+    private boolean includeMdcData = LogProperties.getInstance().getInclude_mdc_data();
 
     /**
      * If true, caller data (source file-, method-, class name and line) will be sent, too.
@@ -87,7 +88,7 @@ public class GelfEncoder extends EncoderBase<ILoggingEvent> {
      */
     @Getter
     @Setter
-    private boolean includeCallerData;
+    private boolean includeCallerData = LogProperties.getInstance().getInclude_caller_data();
 
     /**
      * If true, root cause exception of the exception passed with the log message will be
@@ -95,14 +96,14 @@ public class GelfEncoder extends EncoderBase<ILoggingEvent> {
      */
     @Getter
     @Setter
-    private boolean includeRootCauseData;
+    private boolean includeRootCauseData = LogProperties.getInstance().getInclude_root_cause_data();
 
     /**
      * If true, the log level name (e.g. DEBUG) will be sent, too. Default: false.
      */
     @Getter
     @Setter
-    private boolean includeLevelName;
+    private boolean includeLevelName = LogProperties.getInstance().getInclude_level_name();
 
     /**
      * The key that should be used for the levelName.
@@ -143,10 +144,10 @@ public class GelfEncoder extends EncoderBase<ILoggingEvent> {
             originHost = OneLogUtils.getHostName();
         }
         if (shortPatternLayout == null) {
-            shortPatternLayout = buildPattern(DEFAULT_SHORT_PATTERN);
+            shortPatternLayout = buildPattern(LogProperties.getInstance().getShort_pattern_layout_str());
         }
         if (fullPatternLayout == null) {
-            fullPatternLayout = buildPattern(DEFAULT_FULL_PATTERN);
+            fullPatternLayout = buildPattern(LogProperties.getInstance().getFull_pattern_layout_str());
         }
         super.start();
     }

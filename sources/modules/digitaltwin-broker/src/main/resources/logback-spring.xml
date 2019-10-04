@@ -45,15 +45,29 @@
     <appender name="ASYNC" class="ch.qos.logback.classic.AsyncAppender">
         <appender-ref ref="rollingFileAppender" />
     </appender>
+    
+    <appender name="GELF" class="com.minsait.onesait.platform.onelog.GelfTcpAppender">
+        <encoder class="com.minsait.onesait.platform.onelog.GelfEncoder">
+            <originHost>${HOSTNAME}</originHost>
+            <staticField>app_name:${spring.application.name}</staticField>
+            <staticField>os_name:${os.name}</staticField>
+        </encoder>
+    </appender>
+
+    <appender name="ASYNC GELF" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="GELF" />
+    </appender>    
          
     <springProfile name="dev,default">
 	    <root level="INFO">
 	        <appender-ref ref="stdoutAppender" />
+	        <appender-ref ref="ASYNC GELF" />
 	    </root>
     </springProfile>
     <springProfile name="production,docker">
 	    <root level="INFO">
 	        <appender-ref ref="ASYNC" />
+	        <appender-ref ref="ASYNC GELF" />
 	    </root>
     </springProfile>     
     

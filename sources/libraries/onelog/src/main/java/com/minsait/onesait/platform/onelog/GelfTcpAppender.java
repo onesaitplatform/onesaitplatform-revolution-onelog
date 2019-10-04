@@ -19,6 +19,7 @@ import java.util.Arrays;
 
 import javax.net.SocketFactory;
 
+import com.minsait.onesait.platform.onelog.config.LogProperties;
 import com.minsait.onesait.platform.onelog.pool.PooledObjectConsumer;
 import com.minsait.onesait.platform.onelog.pool.PooledObjectFactory;
 import com.minsait.onesait.platform.onelog.pool.SimpleObjectPool;
@@ -41,7 +42,7 @@ public class GelfTcpAppender extends GelfAppender {
      */
     @Getter
     @Setter
-    private int connectTimeout = DEFAULT_CONNECT_TIMEOUT;
+    private int connectTimeout = LogProperties.getInstance().getConnect_timeout();
 
     /**
      * Time interval (in seconds) after an existing connection is closed and re-opened.
@@ -49,14 +50,14 @@ public class GelfTcpAppender extends GelfAppender {
      */
     @Getter
     @Setter
-    private int reconnectInterval = DEFAULT_RECONNECT_INTERVAL;
+    private int reconnectInterval = LogProperties.getInstance().getReconnect_interval();
 
     /**
      * Number of retries. A value of 0 disables retry attempts. Default: 2.
      */
     @Getter
     @Setter
-    private int maxRetries = DEFAULT_MAX_RETRIES;
+    private int maxRetries = LogProperties.getInstance().getMax_retries();
 
     /**
      * Time (in milliseconds) between retry attempts. Ignored if maxRetries is 0.
@@ -64,14 +65,14 @@ public class GelfTcpAppender extends GelfAppender {
      */
     @Getter
     @Setter
-    private int retryDelay = DEFAULT_RETRY_DELAY;
+    private int retryDelay = LogProperties.getInstance().getRetry_delay();
 
     /**
      * Number of concurrent tcp connections (minimum 1). Default: 2.
      */
     @Getter
     @Setter
-    private int poolSize = DEFAULT_POOL_SIZE;
+    private int poolSize = LogProperties.getInstance().getPool_size();
 
     /**
      * Maximum amount of time (in milliseconds) to wait for a connection to become
@@ -79,7 +80,7 @@ public class GelfTcpAppender extends GelfAppender {
      */
     @Getter
     @Setter
-    private int poolMaxWaitTime = DEFAULT_POOL_MAX_WAIT_TIME;
+    private int poolMaxWaitTime = LogProperties.getInstance().getPool_max_wait_time();
 
     private SimpleObjectPool<TcpConnection> connectionPool;
 
