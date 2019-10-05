@@ -29,12 +29,7 @@ import lombok.Setter;
 
 public class GelfTcpAppender extends GelfAppender {
 
-    private static final int DEFAULT_CONNECT_TIMEOUT = 15_000;
-    private static final int DEFAULT_RECONNECT_INTERVAL = 60;
-    private static final int DEFAULT_MAX_RETRIES = 2;
-    private static final int DEFAULT_RETRY_DELAY = 3_000;
-    private static final int DEFAULT_POOL_SIZE = 2;
-    private static final int DEFAULT_POOL_MAX_WAIT_TIME = 5_000;
+	private LogProperties logProperties = LogProperties.getInstance(); 
 
     /**
      * Maximum time (in milliseconds) to wait for establishing a connection. A value of 0 disables
@@ -42,7 +37,7 @@ public class GelfTcpAppender extends GelfAppender {
      */
     @Getter
     @Setter
-    private int connectTimeout = LogProperties.getInstance().getConnect_timeout();
+    private int connectTimeout = logProperties.getConnect_timeout();
 
     /**
      * Time interval (in seconds) after an existing connection is closed and re-opened.
@@ -50,14 +45,14 @@ public class GelfTcpAppender extends GelfAppender {
      */
     @Getter
     @Setter
-    private int reconnectInterval = LogProperties.getInstance().getReconnect_interval();
+    private int reconnectInterval = logProperties.getReconnect_interval();
 
     /**
      * Number of retries. A value of 0 disables retry attempts. Default: 2.
      */
     @Getter
     @Setter
-    private int maxRetries = LogProperties.getInstance().getMax_retries();
+    private int maxRetries = logProperties.getMax_retries();
 
     /**
      * Time (in milliseconds) between retry attempts. Ignored if maxRetries is 0.
@@ -65,14 +60,14 @@ public class GelfTcpAppender extends GelfAppender {
      */
     @Getter
     @Setter
-    private int retryDelay = LogProperties.getInstance().getRetry_delay();
+    private int retryDelay = logProperties.getRetry_delay();
 
     /**
      * Number of concurrent tcp connections (minimum 1). Default: 2.
      */
     @Getter
     @Setter
-    private int poolSize = LogProperties.getInstance().getPool_size();
+    private int poolSize = logProperties.getPool_size();
 
     /**
      * Maximum amount of time (in milliseconds) to wait for a connection to become
@@ -80,7 +75,7 @@ public class GelfTcpAppender extends GelfAppender {
      */
     @Getter
     @Setter
-    private int poolMaxWaitTime = LogProperties.getInstance().getPool_max_wait_time();
+    private int poolMaxWaitTime = logProperties.getPool_max_wait_time();
 
     private SimpleObjectPool<TcpConnection> connectionPool;
 

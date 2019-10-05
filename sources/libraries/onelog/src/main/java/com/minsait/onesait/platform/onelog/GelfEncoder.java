@@ -42,15 +42,14 @@ import lombok.Setter;
  */
 public class GelfEncoder extends EncoderBase<ILoggingEvent> {
 	
+	private LogProperties logProperties = LogProperties.getInstance();
+	
 	/** GELF Encoder version */
 	private static final float GELF_ENCODER_VERSION = 1.0f;
 
     private static final Pattern VALID_ADDITIONAL_FIELD_PATTERN = Pattern.compile("^[\\w.-]*$");
     private static final double MSEC_DIVIDER = 1000D;
 
-    private static final String DEFAULT_SHORT_PATTERN = "%m%nopex";
-    private static final String DEFAULT_FULL_PATTERN = "%m%n";
-    
     /** Jackson Serializer */
     private static final ObjectMapper mapper = new ObjectMapper();
 
@@ -59,28 +58,28 @@ public class GelfEncoder extends EncoderBase<ILoggingEvent> {
      */
     @Getter
     @Setter
-    private String originHost = LogProperties.getInstance().getOrigin_host();
+    private String originHost = logProperties.getOrigin_host();
 
     /**
      * If true, the raw message (with argument placeholders) will be sent, too. Default: false.
      */
     @Getter
     @Setter
-    private boolean includeRawMessage = LogProperties.getInstance().getInclude_raw_message();
+    private boolean includeRawMessage = logProperties.getInclude_raw_message();
 
     /**
      * If true, logback markers will be sent, too. Default: true.
      */
     @Getter
     @Setter
-    private boolean includeMarker = LogProperties.getInstance().getInclude_marker();
+    private boolean includeMarker = logProperties.getInclude_marker();
 
     /**
      * If true, MDC keys/values will be sent, too. Default: true.
      */
     @Getter
     @Setter
-    private boolean includeMdcData = LogProperties.getInstance().getInclude_mdc_data();
+    private boolean includeMdcData = logProperties.getInclude_mdc_data();
 
     /**
      * If true, caller data (source file-, method-, class name and line) will be sent, too.
@@ -88,7 +87,7 @@ public class GelfEncoder extends EncoderBase<ILoggingEvent> {
      */
     @Getter
     @Setter
-    private boolean includeCallerData = LogProperties.getInstance().getInclude_caller_data();
+    private boolean includeCallerData = logProperties.getInclude_caller_data();
 
     /**
      * If true, root cause exception of the exception passed with the log message will be
@@ -96,14 +95,14 @@ public class GelfEncoder extends EncoderBase<ILoggingEvent> {
      */
     @Getter
     @Setter
-    private boolean includeRootCauseData = LogProperties.getInstance().getInclude_root_cause_data();
+    private boolean includeRootCauseData = logProperties.getInclude_root_cause_data();
 
     /**
      * If true, the log level name (e.g. DEBUG) will be sent, too. Default: false.
      */
     @Getter
     @Setter
-    private boolean includeLevelName = LogProperties.getInstance().getInclude_level_name();
+    private boolean includeLevelName = logProperties.getInclude_level_name();
 
     /**
      * The key that should be used for the levelName.
@@ -144,10 +143,10 @@ public class GelfEncoder extends EncoderBase<ILoggingEvent> {
             originHost = OneLogUtils.getHostName();
         }
         if (shortPatternLayout == null) {
-            shortPatternLayout = buildPattern(LogProperties.getInstance().getShort_pattern_layout_str());
+            shortPatternLayout = buildPattern(logProperties.getShort_pattern_layout_str());
         }
         if (fullPatternLayout == null) {
-            fullPatternLayout = buildPattern(LogProperties.getInstance().getFull_pattern_layout_str());
+            fullPatternLayout = buildPattern(logProperties.getFull_pattern_layout_str());
         }
         super.start();
     }

@@ -40,5 +40,3 @@ services:
       - 1514:1514/udp
       # GELF TCP
       - 12201:12201
-      # GELF UDP
-      - 12201:12201/udp

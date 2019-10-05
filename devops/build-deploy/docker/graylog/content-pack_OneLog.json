@@ -1,0 +1,1173 @@
+{
+  "v": 1,
+  "id": "0c59438a-23b8-4fcd-bcab-3d4a194ebf04",
+  "rev": 1,
+  "name": "Onesaitplatform Context Pack",
+  "summary": "OneLog",
+  "description": "Context Pack to install inputs and streams for Onesaitplatform",
+  "vendor": "OneLog",
+  "url": "",
+  "parameters": [],
+  "entities": [
+    {
+      "v": "1",
+	  "id": "GELF TCP-12201",
+      "type": {
+        "name": "input",
+        "version": "1"
+      },
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "GELF TCP INPUT"
+        },
+        "configuration": {
+          "tls_key_file": {
+            "@type": "string",
+            "@value": "admin"
+          },
+          "port": {
+            "@type": "integer",
+            "@value": 12201
+          },
+          "tls_enable": {
+            "@type": "boolean",
+            "@value": false
+          },
+          "use_null_delimiter": {
+            "@type": "boolean",
+            "@value": true
+          },
+          "recv_buffer_size": {
+            "@type": "integer",
+            "@value": 1048576
+          },
+          "tcp_keepalive": {
+            "@type": "boolean",
+            "@value": false
+          },
+          "tls_client_auth_cert_file": {
+            "@type": "string",
+            "@value": ""
+          },
+          "bind_address": {
+            "@type": "string",
+            "@value": "0.0.0.0"
+          },
+          "tls_cert_file": {
+            "@type": "string",
+            "@value": ""
+          },
+          "max_message_size": {
+            "@type": "integer",
+            "@value": 2097152
+          },
+          "tls_client_auth": {
+            "@type": "string",
+            "@value": "disabled"
+          },
+          "decompress_size_limit": {
+            "@type": "integer",
+            "@value": 8388608
+          },
+          "number_worker_threads": {
+            "@type": "integer",
+            "@value": 2
+          },
+          "tls_key_password": {
+            "@type": "string",
+            "@value": "admin"
+          }
+        },
+        "static_fields": {},
+        "type": {
+          "@type": "string",
+          "@value": "org.graylog2.inputs.gelf.tcp.GELFTCPInput"
+        },
+        "global": {
+          "@type": "boolean",
+          "@value": false
+        },
+        "extractors": []
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.1.2+9e96b08"
+        }
+      ]
+    },
+    {
+      "v": "1",
+	  "id": "STREAM onesaitplatform-control-panel",
+      "type": {
+        "name": "stream",
+        "version": "1"
+      },
+      "data": {
+        "alarm_callbacks": [],
+        "outputs": [],
+        "remove_matches": {
+          "@type": "boolean",
+          "@value": false
+        },
+        "title": {
+          "@type": "string",
+          "@value": "onesaitplatform-control-panel"
+        },
+        "stream_rules": [
+          {
+            "type": {
+              "@type": "string",
+              "@value": "EXACT"
+            },
+            "field": {
+              "@type": "string",
+              "@value": "app_name"
+            },
+            "value": {
+              "@type": "string",
+              "@value": "onesaitplatform-control-panel"
+            },
+            "inverted": {
+              "@type": "boolean",
+              "@value": false
+            },
+            "description": {
+              "@type": "string",
+              "@value": "onesaitplatform-control-panel module"
+            }
+          }
+        ],
+        "alert_conditions": [],
+        "matching_type": {
+          "@type": "string",
+          "@value": "AND"
+        },
+        "disabled": {
+          "@type": "boolean",
+          "@value": false
+        },
+        "description": {
+          "@type": "string",
+          "@value": "stream"
+        },
+        "default_stream": {
+          "@type": "boolean",
+          "@value": false
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.1.2+9e96b08"
+        }
+      ]
+    },
+    {
+      "v": "1",
+	  "id": "STREAM onesaitplatform-api-manager",
+      "type": {
+        "name": "stream",
+        "version": "1"
+      },
+      "data": {
+        "alarm_callbacks": [],
+        "outputs": [],
+        "remove_matches": {
+          "@type": "boolean",
+          "@value": false
+        },
+        "title": {
+          "@type": "string",
+          "@value": "onesaitplatform-api-manager"
+        },
+        "stream_rules": [
+          {
+            "type": {
+              "@type": "string",
+              "@value": "EXACT"
+            },
+            "field": {
+              "@type": "string",
+              "@value": "app_name"
+            },
+            "value": {
+              "@type": "string",
+              "@value": "onesaitplatform-api-manager"
+            },
+            "inverted": {
+              "@type": "boolean",
+              "@value": false
+            },
+            "description": {
+              "@type": "string",
+              "@value": "onesaitplatform-api-manager module"
+            }
+          }
+        ],
+        "alert_conditions": [],
+        "matching_type": {
+          "@type": "string",
+          "@value": "AND"
+        },
+        "disabled": {
+          "@type": "boolean",
+          "@value": false
+        },
+        "description": {
+          "@type": "string",
+          "@value": "stream"
+        },
+        "default_stream": {
+          "@type": "boolean",
+          "@value": false
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.1.2+9e96b08"
+        }
+      ]
+    },
+    {
+      "v": "1",
+	  "id": "STREAM onesaitplatform-cache-server",
+      "type": {
+        "name": "stream",
+        "version": "1"
+      },
+      "data": {
+        "alarm_callbacks": [],
+        "outputs": [],
+        "remove_matches": {
+          "@type": "boolean",
+          "@value": false
+        },
+        "title": {
+          "@type": "string",
+          "@value": "onesaitplatform-cache-server"
+        },
+        "stream_rules": [
+          {
+            "type": {
+              "@type": "string",
+              "@value": "EXACT"
+            },
+            "field": {
+              "@type": "string",
+              "@value": "app_name"
+            },
+            "value": {
+              "@type": "string",
+              "@value": "onesaitplatform-cache-server"
+            },
+            "inverted": {
+              "@type": "boolean",
+              "@value": false
+            },
+            "description": {
+              "@type": "string",
+              "@value": "onesaitplatform-cache-server module"
+            }
+          }
+        ],
+        "alert_conditions": [],
+        "matching_type": {
+          "@type": "string",
+          "@value": "AND"
+        },
+        "disabled": {
+          "@type": "boolean",
+          "@value": false
+        },
+        "description": {
+          "@type": "string",
+          "@value": "stream"
+        },
+        "default_stream": {
+          "@type": "boolean",
+          "@value": false
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.1.2+9e96b08"
+        }
+      ]
+    },
+    {
+      "v": "1",
+	  "id": "STREAM systemconfig-init",
+      "type": {
+        "name": "stream",
+        "version": "1"
+      },
+      "data": {
+        "alarm_callbacks": [],
+        "outputs": [],
+        "remove_matches": {
+          "@type": "boolean",
+          "@value": false
+        },
+        "title": {
+          "@type": "string",
+          "@value": "systemconfig-init"
+        },
+        "stream_rules": [
+          {
+            "type": {
+              "@type": "string",
+              "@value": "EXACT"
+            },
+            "field": {
+              "@type": "string",
+              "@value": "app_name"
+            },
+            "value": {
+              "@type": "string",
+              "@value": "systemconfig-init"
+            },
+            "inverted": {
+              "@type": "boolean",
+              "@value": false
+            },
+            "description": {
+              "@type": "string",
+              "@value": "systemconfig-init module"
+            }
+          }
+        ],
+        "alert_conditions": [],
+        "matching_type": {
+          "@type": "string",
+          "@value": "AND"
+        },
+        "disabled": {
+          "@type": "boolean",
+          "@value": false
+        },
+        "description": {
+          "@type": "string",
+          "@value": "stream"
+        },
+        "default_stream": {
+          "@type": "boolean",
+          "@value": false
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.1.2+9e96b08"
+        }
+      ]
+    },
+    {
+      "v": "1",
+	  "id": "STREAM onesaitplatform-dashboard-engine",
+      "type": {
+        "name": "stream",
+        "version": "1"
+      },
+      "data": {
+        "alarm_callbacks": [],
+        "outputs": [],
+        "remove_matches": {
+          "@type": "boolean",
+          "@value": false
+        },
+        "title": {
+          "@type": "string",
+          "@value": "onesaitplatform-dashboard-engine"
+        },
+        "stream_rules": [
+          {
+            "type": {
+              "@type": "string",
+              "@value": "EXACT"
+            },
+            "field": {
+              "@type": "string",
+              "@value": "app_name"
+            },
+            "value": {
+              "@type": "string",
+              "@value": "onesaitplatform-dashboard-engine"
+            },
+            "inverted": {
+              "@type": "boolean",
+              "@value": false
+            },
+            "description": {
+              "@type": "string",
+              "@value": "onesaitplatform-dashboard-engine module"
+            }
+          }
+        ],
+        "alert_conditions": [],
+        "matching_type": {
+          "@type": "string",
+          "@value": "AND"
+        },
+        "disabled": {
+          "@type": "boolean",
+          "@value": false
+        },
+        "description": {
+          "@type": "string",
+          "@value": "stream"
+        },
+        "default_stream": {
+          "@type": "boolean",
+          "@value": false
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.1.2+9e96b08"
+        }
+      ]
+    },
+    {
+      "v": "1",
+	  "id": "STREAM onesaitplatform-device-simulator",
+      "type": {
+        "name": "stream",
+        "version": "1"
+      },
+      "data": {
+        "alarm_callbacks": [],
+        "outputs": [],
+        "remove_matches": {
+          "@type": "boolean",
+          "@value": false
+        },
+        "title": {
+          "@type": "string",
+          "@value": "onesaitplatform-device-simulator"
+        },
+        "stream_rules": [
+          {
+            "type": {
+              "@type": "string",
+              "@value": "EXACT"
+            },
+            "field": {
+              "@type": "string",
+              "@value": "app_name"
+            },
+            "value": {
+              "@type": "string",
+              "@value": "onesaitplatform-device-simulator"
+            },
+            "inverted": {
+              "@type": "boolean",
+              "@value": false
+            },
+            "description": {
+              "@type": "string",
+              "@value": "onesaitplatform-device-simulator module"
+            }
+          }
+        ],
+        "alert_conditions": [],
+        "matching_type": {
+          "@type": "string",
+          "@value": "AND"
+        },
+        "disabled": {
+          "@type": "boolean",
+          "@value": false
+        },
+        "description": {
+          "@type": "string",
+          "@value": "stream"
+        },
+        "default_stream": {
+          "@type": "boolean",
+          "@value": false
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.1.2+9e96b08"
+        }
+      ]
+    },
+    {
+      "v": "1",
+	  "id": "STREAM onesaitplatform-digitaltwin-broker",
+      "type": {
+        "name": "stream",
+        "version": "1"
+      },
+      "data": {
+        "alarm_callbacks": [],
+        "outputs": [],
+        "remove_matches": {
+          "@type": "boolean",
+          "@value": false
+        },
+        "title": {
+          "@type": "string",
+          "@value": "onesaitplatform-digitaltwin-broker"
+        },
+        "stream_rules": [
+          {
+            "type": {
+              "@type": "string",
+              "@value": "EXACT"
+            },
+            "field": {
+              "@type": "string",
+              "@value": "app_name"
+            },
+            "value": {
+              "@type": "string",
+              "@value": "onesaitplatform-digitaltwin-broker"
+            },
+            "inverted": {
+              "@type": "boolean",
+              "@value": false
+            },
+            "description": {
+              "@type": "string",
+              "@value": "onesaitplatform-digitaltwin-broker module"
+            }
+          }
+        ],
+        "alert_conditions": [],
+        "matching_type": {
+          "@type": "string",
+          "@value": "AND"
+        },
+        "disabled": {
+          "@type": "boolean",
+          "@value": false
+        },
+        "description": {
+          "@type": "string",
+          "@value": "stream"
+        },
+        "default_stream": {
+          "@type": "boolean",
+          "@value": false
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.1.2+9e96b08"
+        }
+      ]
+    },
+    {
+      "v": "1",
+	  "id": "STREAM onesaitplatform-flow-engine",
+      "type": {
+        "name": "stream",
+        "version": "1"
+      },
+      "data": {
+        "alarm_callbacks": [],
+        "outputs": [],
+        "remove_matches": {
+          "@type": "boolean",
+          "@value": false
+        },
+        "title": {
+          "@type": "string",
+          "@value": "onesaitplatform-flow-engine"
+        },
+        "stream_rules": [
+          {
+            "type": {
+              "@type": "string",
+              "@value": "EXACT"
+            },
+            "field": {
+              "@type": "string",
+              "@value": "app_name"
+            },
+            "value": {
+              "@type": "string",
+              "@value": "onesaitplatform-flow-engine"
+            },
+            "inverted": {
+              "@type": "boolean",
+              "@value": false
+            },
+            "description": {
+              "@type": "string",
+              "@value": "onesaitplatform-flow-engine module"
+            }
+          }
+        ],
+        "alert_conditions": [],
+        "matching_type": {
+          "@type": "string",
+          "@value": "AND"
+        },
+        "disabled": {
+          "@type": "boolean",
+          "@value": false
+        },
+        "description": {
+          "@type": "string",
+          "@value": "stream"
+        },
+        "default_stream": {
+          "@type": "boolean",
+          "@value": false
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.1.2+9e96b08"
+        }
+      ]
+    },
+    {
+      "v": "1",
+	  "id": "STREAM onesaitplatform-iot-broker",
+      "type": {
+        "name": "stream",
+        "version": "1"
+      },
+      "data": {
+        "alarm_callbacks": [],
+        "outputs": [],
+        "remove_matches": {
+          "@type": "boolean",
+          "@value": false
+        },
+        "title": {
+          "@type": "string",
+          "@value": "onesaitplatform-iot-broker"
+        },
+        "stream_rules": [
+          {
+            "type": {
+              "@type": "string",
+              "@value": "EXACT"
+            },
+            "field": {
+              "@type": "string",
+              "@value": "app_name"
+            },
+            "value": {
+              "@type": "string",
+              "@value": "onesaitplatform-iot-broker"
+            },
+            "inverted": {
+              "@type": "boolean",
+              "@value": false
+            },
+            "description": {
+              "@type": "string",
+              "@value": "onesaitplatform-iot-broker module"
+            }
+          }
+        ],
+        "alert_conditions": [],
+        "matching_type": {
+          "@type": "string",
+          "@value": "AND"
+        },
+        "disabled": {
+          "@type": "boolean",
+          "@value": false
+        },
+        "description": {
+          "@type": "string",
+          "@value": "stream"
+        },
+        "default_stream": {
+          "@type": "boolean",
+          "@value": false
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.1.2+9e96b08"
+        }
+      ]
+    },
+    {
+      "v": "1",
+	  "id": "STREAM onesaitplatform-monitoring-ui",
+      "type": {
+        "name": "stream",
+        "version": "1"
+      },
+      "data": {
+        "alarm_callbacks": [],
+        "outputs": [],
+        "remove_matches": {
+          "@type": "boolean",
+          "@value": false
+        },
+        "title": {
+          "@type": "string",
+          "@value": "onesaitplatform-monitoring-ui"
+        },
+        "stream_rules": [
+          {
+            "type": {
+              "@type": "string",
+              "@value": "EXACT"
+            },
+            "field": {
+              "@type": "string",
+              "@value": "app_name"
+            },
+            "value": {
+              "@type": "string",
+              "@value": "onesaitplatform-monitoring-ui"
+            },
+            "inverted": {
+              "@type": "boolean",
+              "@value": false
+            },
+            "description": {
+              "@type": "string",
+              "@value": "onesaitplatform-monitoring-ui module"
+            }
+          }
+        ],
+        "alert_conditions": [],
+        "matching_type": {
+          "@type": "string",
+          "@value": "AND"
+        },
+        "disabled": {
+          "@type": "boolean",
+          "@value": false
+        },
+        "description": {
+          "@type": "string",
+          "@value": "stream"
+        },
+        "default_stream": {
+          "@type": "boolean",
+          "@value": false
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.1.2+9e96b08"
+        }
+      ]
+    },
+    {
+      "v": "1",
+	  "id": "STREAM onesaitplatform-oauth-server",
+      "type": {
+        "name": "stream",
+        "version": "1"
+      },
+      "data": {
+        "alarm_callbacks": [],
+        "outputs": [],
+        "remove_matches": {
+          "@type": "boolean",
+          "@value": false
+        },
+        "title": {
+          "@type": "string",
+          "@value": "onesaitplatform-oauth-server"
+        },
+        "stream_rules": [
+          {
+            "type": {
+              "@type": "string",
+              "@value": "EXACT"
+            },
+            "field": {
+              "@type": "string",
+              "@value": "app_name"
+            },
+            "value": {
+              "@type": "string",
+              "@value": "onesaitplatform-oauth-server"
+            },
+            "inverted": {
+              "@type": "boolean",
+              "@value": false
+            },
+            "description": {
+              "@type": "string",
+              "@value": "onesaitplatform-oauth-server module"
+            }
+          }
+        ],
+        "alert_conditions": [],
+        "matching_type": {
+          "@type": "string",
+          "@value": "AND"
+        },
+        "disabled": {
+          "@type": "boolean",
+          "@value": false
+        },
+        "description": {
+          "@type": "string",
+          "@value": "stream"
+        },
+        "default_stream": {
+          "@type": "boolean",
+          "@value": false
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.1.2+9e96b08"
+        }
+      ]
+    },
+    {
+      "v": "1",
+	  "id": "STREAM onesaitplatform-planner",
+      "type": {
+        "name": "stream",
+        "version": "1"
+      },
+      "data": {
+        "alarm_callbacks": [],
+        "outputs": [],
+        "remove_matches": {
+          "@type": "boolean",
+          "@value": false
+        },
+        "title": {
+          "@type": "string",
+          "@value": "onesaitplatform-planner"
+        },
+        "stream_rules": [
+          {
+            "type": {
+              "@type": "string",
+              "@value": "EXACT"
+            },
+            "field": {
+              "@type": "string",
+              "@value": "app_name"
+            },
+            "value": {
+              "@type": "string",
+              "@value": "onesaitplatform-planner"
+            },
+            "inverted": {
+              "@type": "boolean",
+              "@value": false
+            },
+            "description": {
+              "@type": "string",
+              "@value": "onesaitplatform-planner module"
+            }
+          }
+        ],
+        "alert_conditions": [],
+        "matching_type": {
+          "@type": "string",
+          "@value": "AND"
+        },
+        "disabled": {
+          "@type": "boolean",
+          "@value": false
+        },
+        "description": {
+          "@type": "string",
+          "@value": "stream"
+        },
+        "default_stream": {
+          "@type": "boolean",
+          "@value": false
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.1.2+9e96b08"
+        }
+      ]
+    },
+    {
+      "v": "1",
+	  "id": "STREAM onesaitplatform-rtdb-maintainer",
+      "type": {
+        "name": "stream",
+        "version": "1"
+      },
+      "data": {
+        "alarm_callbacks": [],
+        "outputs": [],
+        "remove_matches": {
+          "@type": "boolean",
+          "@value": false
+        },
+        "title": {
+          "@type": "string",
+          "@value": "onesaitplatform-rtdb-maintainer"
+        },
+        "stream_rules": [
+          {
+            "type": {
+              "@type": "string",
+              "@value": "EXACT"
+            },
+            "field": {
+              "@type": "string",
+              "@value": "app_name"
+            },
+            "value": {
+              "@type": "string",
+              "@value": "onesaitplatform-rtdb-maintainer"
+            },
+            "inverted": {
+              "@type": "boolean",
+              "@value": false
+            },
+            "description": {
+              "@type": "string",
+              "@value": "onesaitplatform-rtdb-maintainer module"
+            }
+          }
+        ],
+        "alert_conditions": [],
+        "matching_type": {
+          "@type": "string",
+          "@value": "AND"
+        },
+        "disabled": {
+          "@type": "boolean",
+          "@value": false
+        },
+        "description": {
+          "@type": "string",
+          "@value": "stream"
+        },
+        "default_stream": {
+          "@type": "boolean",
+          "@value": false
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.1.2+9e96b08"
+        }
+      ]
+    },
+    {
+      "v": "1",
+	  "id": "STREAM onesaitplatform-rules-engine",
+      "type": {
+        "name": "stream",
+        "version": "1"
+      },
+      "data": {
+        "alarm_callbacks": [],
+        "outputs": [],
+        "remove_matches": {
+          "@type": "boolean",
+          "@value": false
+        },
+        "title": {
+          "@type": "string",
+          "@value": "onesaitplatform-rules-engine"
+        },
+        "stream_rules": [
+          {
+            "type": {
+              "@type": "string",
+              "@value": "EXACT"
+            },
+            "field": {
+              "@type": "string",
+              "@value": "app_name"
+            },
+            "value": {
+              "@type": "string",
+              "@value": "onesaitplatform-rules-engine"
+            },
+            "inverted": {
+              "@type": "boolean",
+              "@value": false
+            },
+            "description": {
+              "@type": "string",
+              "@value": "onesaitplatform-rules-engine module"
+            }
+          }
+        ],
+        "alert_conditions": [],
+        "matching_type": {
+          "@type": "string",
+          "@value": "AND"
+        },
+        "disabled": {
+          "@type": "boolean",
+          "@value": false
+        },
+        "description": {
+          "@type": "string",
+          "@value": "stream"
+        },
+        "default_stream": {
+          "@type": "boolean",
+          "@value": false
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.1.2+9e96b08"
+        }
+      ]
+    },
+    {
+      "v": "1",
+	  "id": "STREAM onesaitplatform-semantic-inf-broker",
+      "type": {
+        "name": "stream",
+        "version": "1"
+      },
+      "data": {
+        "alarm_callbacks": [],
+        "outputs": [],
+        "remove_matches": {
+          "@type": "boolean",
+          "@value": false
+        },
+        "title": {
+          "@type": "string",
+          "@value": "onesaitplatform-semantic-inf-broker"
+        },
+        "stream_rules": [
+          {
+            "type": {
+              "@type": "string",
+              "@value": "EXACT"
+            },
+            "field": {
+              "@type": "string",
+              "@value": "app_name"
+            },
+            "value": {
+              "@type": "string",
+              "@value": "onesaitplatform-semantic-inf-broker"
+            },
+            "inverted": {
+              "@type": "boolean",
+              "@value": false
+            },
+            "description": {
+              "@type": "string",
+              "@value": "onesaitplatform-semantic-inf-broker module"
+            }
+          }
+        ],
+        "alert_conditions": [],
+        "matching_type": {
+          "@type": "string",
+          "@value": "AND"
+        },
+        "disabled": {
+          "@type": "boolean",
+          "@value": false
+        },
+        "description": {
+          "@type": "string",
+          "@value": "stream"
+        },
+        "default_stream": {
+          "@type": "boolean",
+          "@value": false
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.1.2+9e96b08"
+        }
+      ]
+    },
+    {
+      "v": "1",
+	  "id": "STREAM onesaitplatform-video-broker",
+      "type": {
+        "name": "stream",
+        "version": "1"
+      },
+      "data": {
+        "alarm_callbacks": [],
+        "outputs": [],
+        "remove_matches": {
+          "@type": "boolean",
+          "@value": false
+        },
+        "title": {
+          "@type": "string",
+          "@value": "onesaitplatform-video-broker"
+        },
+        "stream_rules": [
+          {
+            "type": {
+              "@type": "string",
+              "@value": "EXACT"
+            },
+            "field": {
+              "@type": "string",
+              "@value": "app_name"
+            },
+            "value": {
+              "@type": "string",
+              "@value": "onesaitplatform-video-broker"
+            },
+            "inverted": {
+              "@type": "boolean",
+              "@value": false
+            },
+            "description": {
+              "@type": "string",
+              "@value": "onesaitplatform-video-broker module"
+            }
+          }
+        ],
+        "alert_conditions": [],
+        "matching_type": {
+          "@type": "string",
+          "@value": "AND"
+        },
+        "disabled": {
+          "@type": "boolean",
+          "@value": false
+        },
+        "description": {
+          "@type": "string",
+          "@value": "stream"
+        },
+        "default_stream": {
+          "@type": "boolean",
+          "@value": false
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.1.2+9e96b08"
+        }
+      ]
+    }
+  ]
+}

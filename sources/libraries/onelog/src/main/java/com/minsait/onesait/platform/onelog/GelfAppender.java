@@ -26,21 +26,21 @@ import lombok.Setter;
 
 public abstract class GelfAppender extends UnsynchronizedAppenderBase<ILoggingEvent> {
 
-    private static final int DEFAULT_GELF_PORT = 12201;
-
+	private LogProperties logProperties = LogProperties.getInstance();
+	
     /**
      * IP or hostname of graylog server.
      */
     @Getter
     @Setter
-    private String graylogHost = LogProperties.getInstance().getGraylog_host();
+    private String graylogHost = logProperties.getGraylog_host();
 
     /**
      * Port of graylog server. Default: 12201.
      */
     @Getter
     @Setter
-    private int graylogPort = LogProperties.getInstance().getGraylog_port();
+    private int graylogPort = logProperties.getGraylog_port();
 
     @Getter
     @Setter
