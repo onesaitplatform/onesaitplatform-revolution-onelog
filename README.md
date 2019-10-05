@@ -4,29 +4,11 @@
   </a>
 </p>
  
-## Versions 
-The platform has 3 distributions, that combined, they cover transformation and creation of new digital business needs
+## OneLog project 
+OneLog project is a centralized logging project using Graylog
 <p align="center">
-    <img src='resources/images/onesaitPlatform-VersionsDescription.png'/>
+    <img src='resources/images/onelog.jpeg'/>
 </p>
-
-## Why?
-We are sure that we have a unique offer in the market based on a combination of differential elements:
-<p align="center">
-    <img src='resources/images/onesaitPlatform-Why.png'/>
-</p>
-
-
-## Definition & Modules
-**onesait Platform** is a technological platform that accelerates the digital transformation, allowing the agile construction of applications through the use of integrated open source components and the combination of the latest technologies in the treatment, intelligent analysis and publication of information. 
-It has a large catalog of components that enable the construction of classic management applications, as well as advanced systems that apply intelligence to processes, connect the physical world with the virtual one, or scale intelligently to adapt to the needs of the business.
-<p align="center">
-    <img src='resources/images/onesaitPlatform-Modules.png'/>
-</p>
-
-You can find a complete description of these modules at [Platform Modules](https://onesaitplatform.atlassian.net/wiki/spaces/OP/pages/177078320/Platform+Modules)
-
-If you want a more technical detail you can read our [Architectural Guides](https://onesaitplatform.atlassian.net/wiki/spaces/OP/pages/360455/Architecture+Guides)
 
 
 ## Getting started with the platform 
@@ -36,22 +18,60 @@ The best way yo start with Onesait Platform is accesing our [Developer Portal](h
 For the quick start you can start watching one of the [Introductory Videos](https://onesaitplatform.atlassian.net/wiki/spaces/OP/pages/31424597/Introductory+Videos)
 or perhaps you prefer to work with the Platform, then follow our [Getting Started Guide](https://onesaitplatform.atlassian.net/wiki/spaces/OP/pages/33179/Getting+Started)
 
+## Graylog
 
-## Getting help
+To start up graylog, the best way it is using Docker [docker-compose file](https://github.com/onesaitplatform/onesaitplatform-revolution-onelog/blob/master/devops/build-deploy/docker/graylog/docker-compose.yml). Inside of the docker-compose file folder, use the following command:
 
-Having trouble with onesait Platform? We’d like to help!
+```
+  docker-compose up
+```
 
-* Check the reference documentation, especially the [Platform Guides](https://onesaitplatform.atlassian.net/wiki/spaces/OP/pages/45842643/Platform+Guides), they provide solutions to the most common questions.
-* Learn more about the platform in our [Confluence Developer Portal]( https://onesaitplatform.online)
-* Report bugs of the platform at [onesait Platform GitHub](https://github.com/onesaitplatform)
+After a while, you should be able to login in the Graylog dashboard using the [http://127.0.0.1:9000/](http://127.0.0.1:9000/).
 
+<p align="center">
+  <a src='https://www.onesaitplatform.com/'>
+    <img src='resources/images/graylog/graylog.png'/>
+  </a>
+</p>
 
-## Roadmap & Contributions
+The default user is **admin** with the password **admin**. You should change the default password in the user profile settings.
 
-At the link you can find our [2018-2019 Roadmap](https://onesaitplatform.atlassian.net/wiki/spaces/OP/pages/32979/Roadmap+onesait+Platform+Cloud)
+### Enable GELF TCP Input
 
-As we are working on a open source model, you can contribute with us. To contribute to onesait Platform, please visit [How to contribute](https://onesaitplatform.atlassian.net/wiki/spaces/OP/pages/9142309/Contribution+Guide) information.
+The first step should be to enable the **GELF TCP input**, to be able to send logs from Onesait Platform modules. 
+<p align="center">
+  <a src='https://www.onesaitplatform.com/'>
+    <img src='resources/images/graylog/inputs.png'/>
+  </a>
+</p>
 
+Select **System** > **Inputs**.
+
+<p align="center">
+  <a src='https://www.onesaitplatform.com/'>
+    <img src='resources/images/graylog/gelf-tcp.png'/>
+  </a>
+</p>
+
+In the combo selector, choose **GELF TCP** and press the button **Launch new input**.
+
+<p align="center">
+  <a src='https://www.onesaitplatform.com/'>
+    <img src='resources/images/graylog/gelf-tcp-config.png'/>
+  </a>
+</p>
+
+In the new modal window, **select the node** and enter the new **input title**. Then, scroll down and press the **Save** button.
+
+<p align="center">
+  <a src='https://www.onesaitplatform.com/'>
+    <img src='resources/images/graylog/gelf-tcp-saved.png'/>
+  </a>
+</p>
+
+The new GELF TCP input should now be up and running properly.
+
+### Create the Control Panel stream
 
 ## License
 
