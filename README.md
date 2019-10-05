@@ -11,6 +11,12 @@ OneLog project is a centralized logging project using Graylog. Every module and 
     <img src='resources/images/onelog.jpeg'/>
 </p>
 
+### Authors
+
+* Gianluca Vaccaro
+* Estanislao Pérez Nartallo
+* Francisco Gómez Prieto
+
 ## Graylog
 
 To start up graylog, the best way it is using Docker with a [docker-compose file](https://github.com/onesaitplatform/onesaitplatform-revolution-onelog/blob/master/devops/build-deploy/docker/graylog/docker-compose.yml). Inside of the docker-compose file folder, use the following command:
